@@ -28,6 +28,9 @@ void ASAS_PlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 	
+	EnhancedInputComponent->BindAction(PrimaryAction, ETriggerEvent::Started, this, &ThisClass::Primary);
+	EnhancedInputComponent->BindAction(SecondaryAction, ETriggerEvent::Started, this, &ThisClass::Secondary);
+	
 }
 
 void ASAS_PlayerController::Jump()
@@ -61,4 +64,14 @@ void ASAS_PlayerController::Look(const FInputActionValue& Value)
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	AddYawInput(LookAxisVector.X);
 	AddPitchInput(LookAxisVector.Y);
+}
+
+void ASAS_PlayerController::Primary()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Primary"));
+}
+
+void ASAS_PlayerController::Secondary()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Secondary"));
 }
