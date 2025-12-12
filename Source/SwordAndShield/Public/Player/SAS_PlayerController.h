@@ -42,6 +42,9 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
 	TObjectPtr<UInputAction> SecondaryAction;
 	
+	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
+	TObjectPtr<UInputAction> TertiaryAction;
+	
 	// Movement
 	void Jump();
 	void StopJumping();
@@ -51,6 +54,7 @@ private:
 	// Abilities
 	void Primary();
 	void Secondary();
+	void Tertiary();
 	
 	void ActivateAbility(const FGameplayTag& AbilityTag) const;
 	

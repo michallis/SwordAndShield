@@ -31,6 +31,7 @@ void ASAS_PlayerController::SetupInputComponent()
 	
 	EnhancedInputComponent->BindAction(PrimaryAction, ETriggerEvent::Started, this, &ThisClass::Primary);
 	EnhancedInputComponent->BindAction(SecondaryAction, ETriggerEvent::Started, this, &ThisClass::Secondary);
+	EnhancedInputComponent->BindAction(TertiaryAction, ETriggerEvent::Started, this, &ThisClass::Tertiary);
 	
 }
 
@@ -74,7 +75,12 @@ void ASAS_PlayerController::Primary()
 
 void ASAS_PlayerController::Secondary()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Secondary"));
+	ActivateAbility(SASTags::SASAbilities::Secondary);
+}
+
+void ASAS_PlayerController::Tertiary()
+{
+	ActivateAbility(SASTags::SASAbilities::Tertiary);
 }
 
 void ASAS_PlayerController::ActivateAbility(const FGameplayTag& AbilityTag) const
