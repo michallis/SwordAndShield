@@ -16,6 +16,9 @@ class SWORDANDSHIELD_API ASAS_PlayerCharacter : public ASAS_BaseCharacter
 
 public:
 	ASAS_PlayerCharacter();
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual void PossessedBy(AController* NewController) override;
+	virtual void OnRep_PlayerState() override;
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category="Camera")
@@ -23,5 +26,4 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, Category="Camera")
 	TObjectPtr<class UCameraComponent> FollowCamera;
-	
 };
