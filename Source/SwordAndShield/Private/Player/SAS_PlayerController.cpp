@@ -2,11 +2,12 @@
 
 
 #include "Player/SAS_PlayerController.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
-#include "rapidjson/document.h"
-#include "VerseVM/VVMVerseEnum.h"
+#include "GameplayTags/SASTags.h"
 
 void ASAS_PlayerController::SetupInputComponent()
 {
@@ -68,10 +69,18 @@ void ASAS_PlayerController::Look(const FInputActionValue& Value)
 
 void ASAS_PlayerController::Primary()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Primary"));
+	ActivateAbility(SASTags::SASAbilities::Primary);
 }
 
 void ASAS_PlayerController::Secondary()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Secondary"));
+}
+
+void ASAS_PlayerController::ActivateAbility(const FGameplayTag& AbilityTag) const
+{
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn());
+	if (!IsValid(ASC)) return;
+	ASC->TryActivateAbilitiesByTag(AbilityTag.GetSingleTagContainer());
+	
 }

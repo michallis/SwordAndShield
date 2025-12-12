@@ -10,6 +10,7 @@
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+struct FGameplayTag;
 
 /**
  * 
@@ -50,5 +51,7 @@ private:
 	// Abilities
 	void Primary();
 	void Secondary();
+	
+	void ActivateAbility(const FGameplayTag& AbilityTag) const;
 	
 };
