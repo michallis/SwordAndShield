@@ -7,6 +7,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTags/SASTags.h"
 
 void ASAS_PlayerController::SetupInputComponent()
@@ -27,6 +28,9 @@ void ASAS_PlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ThisClass::Jump);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ThisClass::Sprint);
+	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &ThisClass::SprintReset);
+	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ThisClass::SprintReset);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
 	
 	EnhancedInputComponent->BindAction(PrimaryAction, ETriggerEvent::Started, this, &ThisClass::Primary);
@@ -59,6 +63,18 @@ void ASAS_PlayerController::Move(const FInputActionValue& Value)
 	
 	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y, false);
 	GetPawn()->AddMovementInput(RightDirection, MovementVector.X, false);
+}
+
+void ASAS_PlayerController::Sprint()
+{
+	if (!IsValid(GetCharacter())) return;
+	GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementSprint;
+}
+
+void ASAS_PlayerController::SprintReset()
+{
+	if (!IsValid(GetCharacter())) return;
+	GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementWalk;
 }
 
 void ASAS_PlayerController::Look(const FInputActionValue& Value)

@@ -34,6 +34,9 @@ private:
 	TObjectPtr<UInputAction> MoveAction;
 	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Movement")
+	TObjectPtr<UInputAction> SprintAction;
+	
+	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Movement")
 	TObjectPtr<UInputAction> LookAction;
 	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
@@ -45,10 +48,18 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
 	TObjectPtr<UInputAction> TertiaryAction;
 	
+	UPROPERTY(EditAnywhere, Category="SAS|Movement")
+	float MaxSpeedMovementWalk = 120.f;
+	
+	UPROPERTY(EditAnywhere, Category="SAS|Movement")
+	float MaxSpeedMovementSprint = 240.f;
+	
 	// Movement
 	void Jump();
 	void StopJumping();
 	void Move(const FInputActionValue& Value);
+	void Sprint();
+	void SprintReset();
 	void Look(const FInputActionValue& Value);
 	
 	// Abilities
