@@ -3,9 +3,11 @@
 
 #include "AbilitySystem/Abilities/Player/SAS_Primary.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "Engine/OverlapResult.h"
+#include "GameplayTags/SASTags.h"
 
-void USAS_Primary::HitBoxOverlapTest()
+TArray<AActor*> USAS_Primary::HitBoxOverlapTest()
 {
 	TArray<AActor*> ActorsToIgnore;
 	ActorsToIgnore.Add(GetAvatarActorFromActorInfo());
@@ -28,16 +30,48 @@ void USAS_Primary::HitBoxOverlapTest()
 	
 	GetWorld()->OverlapMultiByChannel(OverlapResults, HitBoxLocation, FQuat::Identity, ECC_Visibility, Sphere, QueryParams, ResponseParams);
 	
+	TArray<AActor*> ActorsHit;
+	for (const FOverlapResult& Overlap : OverlapResults)
+	{
+		if (!IsValid(Overlap.GetActor())) continue;
+		ActorsHit.AddUnique(Overlap.GetActor());
+	}
+	
+
+	
 	if (bDrawDebugs){
-		DrawDebugSphere(GetWorld(), HitBoxLocation, HitBoxRadius, 16, FColor::Red, false, 3.f);
-		for (const FOverlapResult& Overlap : OverlapResults)
+		DrawHitBoxOverlapDebugs(OverlapResults, HitBoxLocation);
+	}
+	
+	return ActorsHit;
+}
+
+/**
+ * 
+ * @param ActorsToReactTo Sent HitReact event to all provided actors
+ */
+void USAS_Primary::SendHitReactEventToActors(const TArray<AActor*>& ActorsToReactTo)
+{
+	for (AActor* HitActor : ActorsToReactTo)
+	{
+		FGameplayEventData Payload;
+		Payload.Instigator = GetAvatarActorFromActorInfo();
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(HitActor, SASTags::Events::Enemy::HitReact, Payload);
+	}
+}
+
+void USAS_Primary::DrawHitBoxOverlapDebugs(const TArray<FOverlapResult>& OverlapResults,
+                                           const FVector& HitBoxLocation) const
+{
+	DrawDebugSphere(GetWorld(), HitBoxLocation, HitBoxRadius, 16, FColor::Red, false, 3.f);
+	for (const FOverlapResult& Overlap : OverlapResults)
+	{
+		if (IsValid(Overlap.GetActor()))
 		{
-			if (IsValid(Overlap.GetActor()))
-			{
-				FVector DebugLocation = Overlap.GetActor()->GetActorLocation();
-				DebugLocation.Z += 100.f;
-				DrawDebugSphere(GetWorld(), DebugLocation, 30.f, 16, FColor::Green, false, 3.f);
-			}
+			FVector DebugLocation = Overlap.GetActor()->GetActorLocation();
+			DebugLocation.Z += 100.f;
+			DrawDebugSphere(GetWorld(), DebugLocation, 30.f, 16, FColor::Green, false, 3.f);
 		}
 	}
 }
+

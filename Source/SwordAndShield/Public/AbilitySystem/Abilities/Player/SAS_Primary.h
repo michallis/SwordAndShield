@@ -15,9 +15,14 @@ class SWORDANDSHIELD_API USAS_Primary : public USAS_GameplayAbility
 	GENERATED_BODY()
 public:
 	UFUNCTION(BlueprintCallable, Category="SAS|Abilities")
-	void HitBoxOverlapTest();
+	TArray<AActor*> HitBoxOverlapTest();
+	
+	UFUNCTION(BlueprintCallable, Category="SAS|Abilities")
+	void SendHitReactEventToActors(const TArray<AActor*>& ActorsToReactTo);
 	
 private:
+	void DrawHitBoxOverlapDebugs(const TArray<FOverlapResult>& OverlapResults, const FVector& HitBoxLocation) const;
+	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Abilities")
 	float HitBoxRadius = 100.0f;
 	
