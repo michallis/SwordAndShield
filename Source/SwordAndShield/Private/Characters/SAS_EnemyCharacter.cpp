@@ -3,6 +3,7 @@
 
 #include "Characters/SAS_EnemyCharacter.h"
 #include "AbilitySystem/SAS_AbilitySystemComponent.h"
+#include "AbilitySystem/SAS_AttributeSet.h"
 
 ASAS_EnemyCharacter::ASAS_EnemyCharacter()
 {
@@ -11,6 +12,8 @@ ASAS_EnemyCharacter::ASAS_EnemyCharacter()
 	AbilitySystemComponent = CreateDefaultSubobject<USAS_AbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	
+	AttributeSet = CreateDefaultSubobject<USAS_AttributeSet>("AttributeSet");
 }
 
 UAbilitySystemComponent* ASAS_EnemyCharacter::GetAbilitySystemComponent() const

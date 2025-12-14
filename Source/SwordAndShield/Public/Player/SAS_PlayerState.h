@@ -8,6 +8,7 @@
 #include "SAS_PlayerState.generated.h"
 
 class UAbilitySystemComponent;
+class UAttributeSet;
 
 UCLASS()
 class SWORDANDSHIELD_API ASAS_PlayerState : public APlayerState, public IAbilitySystemInterface
@@ -20,4 +21,7 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere, Category="SAS|Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
 };

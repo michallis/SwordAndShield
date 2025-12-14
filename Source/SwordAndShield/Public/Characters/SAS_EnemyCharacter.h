@@ -7,6 +7,7 @@
 #include "SAS_EnemyCharacter.generated.h"
 
 class UAbilitySystemComponent;
+class UAttributeSet;
 
 UCLASS()
 class SWORDANDSHIELD_API ASAS_EnemyCharacter : public ASAS_BaseCharacter
@@ -23,4 +24,7 @@ protected:
 private:
 	UPROPERTY(VisibleAnywhere, Category="SAS|Abilities")
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	
+	UPROPERTY()
+	TObjectPtr<UAttributeSet> AttributeSet;
 };
