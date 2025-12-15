@@ -49,17 +49,30 @@ UAbilitySystemComponent* ASAS_PlayerCharacter::GetAbilitySystemComponent() const
 	return SASPlayerState->GetAbilitySystemComponent();
 }
 
+UAttributeSet* ASAS_PlayerCharacter::GetAttributeSet() const
+{
+	ASAS_PlayerState* SASPlayerState = Cast<ASAS_PlayerState>(GetPlayerState());
+	if (!IsValid(SASPlayerState)) return nullptr;
+	
+	return SASPlayerState->GetAttributeSet();
+}
+
 /**
  * Necessary for the SERVER to Init the ability system
  * It's sufficient to give startup abilities on the server
  * as they will be replicated across clients
+ * Here we initialize Gameplay Attributes as well
  */
 void ASAS_PlayerCharacter::PossessedBy(AController* NewController)
 {
 	Super::PossessedBy(NewController);
+	
 	if (!IsValid(GetAbilitySystemComponent()) || !HasAuthority()) return;
+	
 	GetAbilitySystemComponent()->InitAbilityActorInfo(GetPlayerState(), this);
+	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
 	GiveStartupAbilities();
+	InitializeAttributes();
 }
 
 /**
@@ -71,6 +84,6 @@ void ASAS_PlayerCharacter::OnRep_PlayerState()
 	Super::OnRep_PlayerState();
 	if (!IsValid(GetAbilitySystemComponent())) return;
 	GetAbilitySystemComponent()->InitAbilityActorInfo(GetPlayerState(), this);
+	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
 }
-
 

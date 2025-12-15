@@ -22,16 +22,16 @@ class SWORDANDSHIELD_API USAS_AttributeSet : public UAttributeSet
 public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health, Category="SAS|Attributes|Health")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health)
 	FGameplayAttributeData Health;
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth, Category="SAS|Attributes|MaxHealth")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxHealth)
 	FGameplayAttributeData MaxHealth;
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mana, Category="SAS|Attributes|Mana")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Mana)
 	FGameplayAttributeData Mana;
 	
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana, Category="SAS|Attributes|MaxMana")
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_MaxMana)
 	FGameplayAttributeData MaxMana;
 	
 	UFUNCTION()

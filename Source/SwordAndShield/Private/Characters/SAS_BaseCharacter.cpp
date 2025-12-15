@@ -1,10 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Gift Wrapped Odity
 
 
 #include "SwordAndShield/Public/Characters/SAS_BaseCharacter.h"
 #include "AbilitySystemComponent.h"
 
-// Sets default values
 ASAS_BaseCharacter::ASAS_BaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
@@ -26,6 +25,21 @@ void ASAS_BaseCharacter::GiveStartupAbilities()
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(Ability);
 		GetAbilitySystemComponent()->GiveAbility(AbilitySpec);
 	}
+}
+
+/**
+ * Apply InitializeAttributes Effect on Self
+ */
+void ASAS_BaseCharacter::InitializeAttributes()
+{
+	checkf(IsValid(InitializeAttributesEffect), TEXT("InitializeAttributesEffect not set"))
+	
+	// GameContext and Effect Spec Handle is necessary before applying GameplayEffect (spec: lightweight versions)
+	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(InitializeAttributesEffect, 1.f, ContextHandle);
+	
+	// Apply GameplayEffect
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
 
 
