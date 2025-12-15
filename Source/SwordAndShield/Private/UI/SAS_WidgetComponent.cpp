@@ -92,9 +92,9 @@ void USAS_WidgetComponent::BindWidgetToAttributeChanges(UWidget* WidgetObject, c
 	if (!IsValid(AttributeWidget)) return; // We only care about SAS Attribute Widgets
 	if (!AttributeWidget->MatchesAttributes(Pair)) return; // Only subscribe for mathcing attributes
 	AttributeWidget->OnAttributeChange(Pair, AttributeSet.Get()); // for Initial values
-	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Key).AddLambda([this, AttributeWidget, &Pair](const FOnGameplayAttributeValueChange& AttributeChangeData)
+	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Key).AddLambda([this, AttributeWidget, &Pair](const FOnAttributeChangeData& AttributeChange)
 	{
-		AttributeWidget->OnAttributeChange(Pair, AttributeSet.Get()); // for attribute updates during the game
+		AttributeWidget->OnAttributeChange(Pair, AttributeSet.Get());
 	});
 }
 

@@ -24,7 +24,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="SAS|Attributes")
 	FGameplayAttribute MaxAttribute;
 	
-	void OnAttributeChange(const TTuple<FGameplayAttribute, FGameplayAttribute>& Pair, USAS_AttributeSet* AttributeSet);
+	void OnAttributeChange(const TTuple<FGameplayAttribute, FGameplayAttribute>& Pair, const USAS_AttributeSet* AttributeSet);
 	bool MatchesAttributes(const TTuple<FGameplayAttribute, FGameplayAttribute>& Pair) const;
 	
 	UFUNCTION(BlueprintImplementableEvent, meta = (DisplayName = "On Attribute Change"))
