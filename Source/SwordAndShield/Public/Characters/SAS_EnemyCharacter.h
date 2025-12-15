@@ -17,6 +17,7 @@ class SWORDANDSHIELD_API ASAS_EnemyCharacter : public ASAS_BaseCharacter
 public:
 	ASAS_EnemyCharacter();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAttributeSet* GetAttributeSet() const override;
 
 protected:
 	virtual void BeginPlay() override;

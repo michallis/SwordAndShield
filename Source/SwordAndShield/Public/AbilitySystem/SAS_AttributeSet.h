@@ -14,6 +14,9 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAttributesInitialized);
+
 UCLASS()
 class SWORDANDSHIELD_API USAS_AttributeSet : public UAttributeSet
 {
@@ -21,6 +24,19 @@ class SWORDANDSHIELD_API USAS_AttributeSet : public UAttributeSet
 	
 public:
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+	virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+	
+	/* START FLAG INIT SECTION*/
+	UPROPERTY(BlueprintAssignable)
+	FAttributesInitialized OnAttributesInitialized;
+	
+	UPROPERTY(ReplicatedUsing = OnRep_AttributesInitialized)
+	bool bAttributesInitialized = false;
+	
+	UFUNCTION()
+	void OnRep_AttributesInitialized();
+	
+	/* END FLAG INIT SECTION*/
 	
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = OnRep_Health)
 	FGameplayAttributeData Health;

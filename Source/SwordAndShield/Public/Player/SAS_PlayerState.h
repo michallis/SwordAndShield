@@ -17,6 +17,7 @@ class SWORDANDSHIELD_API ASAS_PlayerState : public APlayerState, public IAbility
 public:
 	ASAS_PlayerState();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 	
 private:
 	UPROPERTY(VisibleAnywhere, Category="SAS|Abilities")
