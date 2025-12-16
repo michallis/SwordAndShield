@@ -4,6 +4,7 @@
 #include "SwordAndShield/Public/Characters/SAS_PlayerCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "AbilitySystem/SAS_AttributeSet.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -73,6 +74,11 @@ void ASAS_PlayerCharacter::PossessedBy(AController* NewController)
 	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
 	GiveStartupAbilities();
 	InitializeAttributes();
+	
+	// Get Attribute set - delegate for Health attribute
+	USAS_AttributeSet* AttributeSet = Cast<USAS_AttributeSet>(GetAttributeSet());
+	if (!IsValid(AttributeSet)) return;
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged );
 }
 
 /**
@@ -85,5 +91,10 @@ void ASAS_PlayerCharacter::OnRep_PlayerState()
 	if (!IsValid(GetAbilitySystemComponent())) return;
 	GetAbilitySystemComponent()->InitAbilityActorInfo(GetPlayerState(), this);
 	OnASCInitialized.Broadcast(GetAbilitySystemComponent(), GetAttributeSet());
+	
+	// Get Attribute set - delegate for Health attribute
+	USAS_AttributeSet* SAS_AttributeSet = Cast<USAS_AttributeSet>(GetAttributeSet());
+	if (!IsValid(SAS_AttributeSet)) return;
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(SAS_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged );
 }
 

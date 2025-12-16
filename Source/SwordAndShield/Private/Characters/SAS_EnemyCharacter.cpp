@@ -38,4 +38,9 @@ void ASAS_EnemyCharacter::BeginPlay()
 	if (!HasAuthority()) return;
 	GiveStartupAbilities();
 	InitializeAttributes();
+	
+	// Get Attribute set - delegate for Health attribute
+	USAS_AttributeSet* SAS_AttributeSet = Cast<USAS_AttributeSet>(GetAttributeSet());
+	if (!IsValid(SAS_AttributeSet)) return;
+	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(SAS_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged );
 }

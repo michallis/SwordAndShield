@@ -23,6 +23,37 @@ void USAS_AbilitySystemComponent::OnRep_ActivateAbilities()
 	}
 }
 
+/**
+ * Should only be done on the server
+ * @param Ability 
+ * @param Level 
+ */
+void USAS_AbilitySystemComponent::SetAbilityLevel(TSubclassOf<UGameplayAbility> AbilityClass, int32 Level)
+{
+	if (IsValid(GetAvatarActor()) && !GetAvatarActor()->HasAuthority()) return;
+	
+	FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromClass(AbilityClass);
+	if (AbilitySpec)
+	{
+		AbilitySpec->Level = Level;
+		//must replicate immediately
+		MarkAbilitySpecDirty(*AbilitySpec);
+	}
+}
+
+void USAS_AbilitySystemComponent::AddToAbilityLevel(TSubclassOf<UGameplayAbility> AbilityClass, int32 Level)
+{
+	if (IsValid(GetAvatarActor()) && !GetAvatarActor()->HasAuthority()) return;
+	
+	FGameplayAbilitySpec* AbilitySpec = FindAbilitySpecFromClass(AbilityClass);
+	if (AbilitySpec)
+	{
+		AbilitySpec->Level += Level;
+		//must replicate immediately
+		MarkAbilitySpecDirty(*AbilitySpec);
+	}
+}
+
 void USAS_AbilitySystemComponent::HandleAutoActivatedAbility(const FGameplayAbilitySpec& AbilitySpec)
 {
 	if (!IsValid(AbilitySpec.Ability)) return;

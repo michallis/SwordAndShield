@@ -3,6 +3,7 @@
 
 #include "SwordAndShield/Public/Characters/SAS_BaseCharacter.h"
 #include "AbilitySystemComponent.h"
+#include "Net/UnrealNetwork.h"
 
 ASAS_BaseCharacter::ASAS_BaseCharacter()
 {
@@ -11,10 +12,22 @@ ASAS_BaseCharacter::ASAS_BaseCharacter()
 	GetMesh()->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
 }
 
+/**
+ * Necessary as we have marked the bAlive attribute as replicated
+ * @param OutLifetimeProps 
+ */
+void ASAS_BaseCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ThisClass, bAlive);
+}
+
 UAbilitySystemComponent* ASAS_BaseCharacter::GetAbilitySystemComponent() const
 {
 	return nullptr; //implemented in child instances
 }
+
+
 
 void ASAS_BaseCharacter::GiveStartupAbilities()
 {
@@ -42,6 +55,27 @@ void ASAS_BaseCharacter::InitializeAttributes()
 	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }
 
+void ASAS_BaseCharacter::OnHealthChanged(const FOnAttributeChangeData& AttributeChange)
+{
+	if (AttributeChange.NewValue <= 0.f)
+	{
+		HandleDeath(); //can be overriden by children
+	}
+}
+
+void ASAS_BaseCharacter::HandleDeath()
+{
+	bAlive = false;
+	if (IsValid(GEngine))
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%s has died."), *GetName()));
+	}
+}
+
+void ASAS_BaseCharacter::HandleRespawn()
+{
+	bAlive = true;
+}
 
 
 
