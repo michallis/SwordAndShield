@@ -3,7 +3,9 @@
 
 #include "AbilitySystem/SAS_AttributeSet.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "GameplayEffectExtension.h"
+#include "GameplayTags/SASTags.h"
 #include "Net/UnrealNetwork.h"
 
 void USAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -25,6 +27,17 @@ void USAS_AttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 void USAS_AttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+	
+	// Send event based on rules
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetHealth() <= 0.f)
+	{
+		// The owner of the attribute set just died
+		FGameplayEventData Payload;
+		Payload.Instigator = Data.Target.GetAvatarActor();
+		UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(Data.EffectSpec.GetEffectContext().GetInstigator(), SASTags::Events::KillScored, Payload);
+	}
+		
+	
 	if (!bAttributesInitialized)
 	{
 		bAttributesInitialized = true;
