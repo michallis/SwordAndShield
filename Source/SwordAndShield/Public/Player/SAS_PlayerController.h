@@ -49,10 +49,10 @@ private:
 	TObjectPtr<UInputAction> TertiaryAction;
 	
 	UPROPERTY(EditAnywhere, Category="SAS|Movement")
-	float MaxSpeedMovementWalk = 120.f;
+	float MaxSpeedMovementWalk = 280.f;
 	
 	UPROPERTY(EditAnywhere, Category="SAS|Movement")
-	float MaxSpeedMovementSprint = 240.f;
+	float MaxSpeedMovementSprint = 420.f;
 	
 	// Movement
 	void Jump();

@@ -33,12 +33,17 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SAS|Death")
 	virtual void HandleRespawn();
 	
+	UFUNCTION(BlueprintCallable, Category="SAS|Attributes")
+	void ResetAttributes();
+	
 protected:
 	void GiveStartupAbilities();
 	void InitializeAttributes();
 	
 	void OnHealthChanged(const FOnAttributeChangeData& AttributeChange);
 	virtual void HandleDeath();
+	
+	void ExecuteGameplayEffect(TSubclassOf<UGameplayEffect> GameplayEffect);
 
 private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Abilities")
@@ -46,6 +51,9 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Effects")
 	TSubclassOf<UGameplayEffect>InitializeAttributesEffect;
+	
+	UPROPERTY(EditDefaultsOnly, Category="SAS|Effects")
+	TSubclassOf<UGameplayEffect>ResetAttributesEffect;
 	
 	UPROPERTY(BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Replicated)
 	bool bAlive = true;

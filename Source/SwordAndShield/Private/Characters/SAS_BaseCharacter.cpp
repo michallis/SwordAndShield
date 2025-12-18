@@ -45,14 +45,7 @@ void ASAS_BaseCharacter::GiveStartupAbilities()
  */
 void ASAS_BaseCharacter::InitializeAttributes()
 {
-	checkf(IsValid(InitializeAttributesEffect), TEXT("InitializeAttributesEffect not set"))
-	
-	// GameContext and Effect Spec Handle is necessary before applying GameplayEffect (spec: lightweight versions)
-	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
-	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(InitializeAttributesEffect, 1.f, ContextHandle);
-	
-	// Apply GameplayEffect
-	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	ExecuteGameplayEffect(InitializeAttributesEffect);
 }
 
 void ASAS_BaseCharacter::OnHealthChanged(const FOnAttributeChangeData& AttributeChange)
@@ -72,10 +65,32 @@ void ASAS_BaseCharacter::HandleDeath()
 	}
 }
 
+
 void ASAS_BaseCharacter::HandleRespawn()
 {
 	bAlive = true;
 }
 
+void ASAS_BaseCharacter::ResetAttributes()
+{
+	ExecuteGameplayEffect(ResetAttributesEffect);
+}
+
+
+/**
+ * Utility function to send out GameplayEffects where needed
+ * @param GameplayEffect 
+ */
+void ASAS_BaseCharacter::ExecuteGameplayEffect(TSubclassOf<UGameplayEffect> GameplayEffect)
+{
+	checkf(IsValid(GameplayEffect), TEXT("ResetAttributesEffect not set"))
+	
+	// GameContext and Effect Spec Handle is necessary before applying GameplayEffect (spec: lightweight versions)
+	FGameplayEffectContextHandle ContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+	FGameplayEffectSpecHandle SpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(GameplayEffect, 1.f, ContextHandle);
+	
+	// Apply GameplayEffect
+	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+}
 
 
