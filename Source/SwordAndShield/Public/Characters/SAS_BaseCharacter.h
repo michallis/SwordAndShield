@@ -14,6 +14,11 @@ class UGameplayAbility;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FASCInitialized, UAbilitySystemComponent*, ASC, UAttributeSet*, AS);
 
+
+/**
+ * TST
+ * 
+ */
 UCLASS(Abstract)
 class SWORDANDSHIELD_API ASAS_BaseCharacter : public ACharacter, public IAbilitySystemInterface
 {
