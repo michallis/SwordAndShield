@@ -41,7 +41,10 @@ ASAS_PlayerCharacter::ASAS_PlayerCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>("FollowCamera");
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
-}
+	
+	// Adding custom tag to mark player
+	Tags.Add(SasCustomTags::Player);
+}	
 
 UAbilitySystemComponent* ASAS_PlayerCharacter::GetAbilitySystemComponent() const
 {

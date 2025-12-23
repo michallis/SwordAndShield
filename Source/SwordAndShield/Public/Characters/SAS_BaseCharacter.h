@@ -7,6 +7,15 @@
 #include "GameFramework/Character.h"
 #include "SAS_BaseCharacter.generated.h"
 
+/**
+ * Tags here are different then the ASC tags. 
+ * Used to 'tag' the player and used in Enemy AI detection
+ */
+namespace SasCustomTags
+{
+	extern SWORDANDSHIELD_API const FName Player;
+}
+
 struct FOnAttributeChangeData;
 class UGameplayEffect;
 class UAttributeSet;

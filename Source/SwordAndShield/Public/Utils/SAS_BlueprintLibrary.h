@@ -15,6 +15,22 @@ enum class EHitDirection: uint8
 	Back
 };
 
+/**
+ * Return type for detecting players and their distance to the 
+ * calling actor
+ */
+USTRUCT(BlueprintType)
+struct FClosestActorWithTagResult
+{
+	GENERATED_BODY()
+	
+	UPROPERTY(BlueprintReadWrite)
+	TWeakObjectPtr<AActor> Actor;
+	
+	UPROPERTY(BlueprintReadWrite)
+	float Distance{0.f};
+};
+
 UCLASS()
 class SWORDANDSHIELD_API USAS_BlueprintLibrary : public UBlueprintFunctionLibrary
 {
@@ -26,4 +42,10 @@ public:
 	
 	UFUNCTION(BlueprintPure, Category="SAS|Utils")
 	static FName GetHitDirectionName(const EHitDirection HitDirection);
+	
+	UFUNCTION(BlueprintCallable, Category="SAS|Utils")
+	static FClosestActorWithTagResult FindClosesActorWithTag(const UObject* WorldContextObject, const FVector& Origin, const FName& Tag);
 };
+
+
+

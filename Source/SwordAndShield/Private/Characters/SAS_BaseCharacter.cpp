@@ -5,6 +5,11 @@
 #include "AbilitySystemComponent.h"
 #include "Net/UnrealNetwork.h"
 
+namespace SasCustomTags
+{
+	const FName Player = FName("Player");
+}
+
 ASAS_BaseCharacter::ASAS_BaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = false;
