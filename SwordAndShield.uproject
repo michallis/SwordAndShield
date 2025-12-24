@@ -24,11 +24,17 @@
 		},
 		{
 			"Name": "Cargo",
-			"Enabled": false
+			"Enabled": false,
+			"TargetAllowList": [
+				"Editor"
+			]
 		},
 		{
 			"Name": "GreyscalegorillaConnect",
-			"Enabled": true
+			"Enabled": false,
+			"TargetAllowList": [
+				"Editor"
+			]
 		}
 	]
 }
