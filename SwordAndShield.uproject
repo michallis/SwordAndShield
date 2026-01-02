@@ -24,10 +24,11 @@
 		},
 		{
 			"Name": "GreyscalegorillaConnect",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Program"
-			]
+			"Enabled": false
+		},
+		{
+			"Name": "Cargo",
+			"Enabled": false
 		}
 	]
 }
