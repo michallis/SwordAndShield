@@ -4,6 +4,7 @@
 #include "Characters/SAS_EnemyCharacter.h"
 #include "AbilitySystem/SAS_AbilitySystemComponent.h"
 #include "AbilitySystem/SAS_AttributeSet.h"
+#include "Runtime/AIModule/Classes/AIController.h"
 
 ASAS_EnemyCharacter::ASAS_EnemyCharacter()
 {
@@ -44,3 +45,12 @@ void ASAS_EnemyCharacter::BeginPlay()
 	if (!IsValid(SAS_AttributeSet)) return;
 	GetAbilitySystemComponent()->GetGameplayAttributeValueChangeDelegate(SAS_AttributeSet->GetHealthAttribute()).AddUObject(this, &ThisClass::OnHealthChanged );
 }
+
+void ASAS_EnemyCharacter::HandleDeath()
+{
+	Super::HandleDeath(); // sets bAlive to false
+	AAIController* AIController = GetController<AAIController>();
+	if (!IsValid(AIController)) return;
+	AIController->StopMovement();
+}
+

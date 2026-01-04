@@ -64,10 +64,10 @@ void ASAS_BaseCharacter::OnHealthChanged(const FOnAttributeChangeData& Attribute
 void ASAS_BaseCharacter::HandleDeath()
 {
 	bAlive = false;
-	if (IsValid(GEngine))
+	/*if (IsValid(GEngine))
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%s has died."), *GetName()));
-	}
+	}*/
 }
 
 
