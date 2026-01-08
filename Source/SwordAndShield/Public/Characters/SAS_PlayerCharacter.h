@@ -21,10 +21,13 @@ public:
 	virtual void OnRep_PlayerState() override;
 	virtual UAttributeSet* GetAttributeSet() const override;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Camera")
+	TObjectPtr<AActor> ActiveCamera;
+	
 private:
-	UPROPERTY(VisibleAnywhere, Category="Camera")
+	/*UPROPERTY(VisibleAnywhere, Category="Camera")
 	TObjectPtr<class USpringArmComponent> CameraBoom;
 	
 	UPROPERTY(VisibleAnywhere, Category="Camera")
-	TObjectPtr<class UCameraComponent> FollowCamera;
+	TObjectPtr<class UCameraComponent> FollowCamera;*/
 };
