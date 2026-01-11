@@ -32,7 +32,7 @@
 		},
 		{
 			"Name": "Odyssey",
-			"Enabled": true
+			"Enabled": false
 		},
 		{
 			"Name": "HoudiniEngine",
