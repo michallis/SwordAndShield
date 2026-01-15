@@ -9,6 +9,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTags/SASTags.h"
+#include "Kismet/GameplayStatics.h"
 
 void ASAS_PlayerController::SetupInputComponent()
 {
@@ -57,8 +58,16 @@ void ASAS_PlayerController::Move(const FInputActionValue& Value)
 	if (!IsValid(GetPawn())) return;
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 	
+	// Get player camera manager
+	APlayerCameraManager* CameraManager = UGameplayStatics::GetPlayerCameraManager(GetWorld(),0);
+	if (!IsValid(CameraManager)) return;
+	
+	// get control rotation
+	const FRotator ControlRot = GetControlRotation();
+	const FRotator CameraRot = CameraManager->GetCameraRotation();
+	
 	// Find which way is forward
-	const FRotator YawRotation(0.f, GetControlRotation().Yaw, 0.f);
+	const FRotator YawRotation(0.f, CameraRot.Yaw, 0.f);
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	
