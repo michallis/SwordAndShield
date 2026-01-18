@@ -1,4 +1,4 @@
-﻿###################################
+###################################
 # JetBrains Rider Generated Files #
 ###################################
 # Cache Directory
@@ -21,3 +21,4 @@
 /Intermediate
 /Saved
 Plugins
+.DS_Store

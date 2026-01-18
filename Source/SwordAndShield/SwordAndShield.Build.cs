@@ -13,7 +13,6 @@ public class SwordAndShield : ModuleRules
 			"Core", 
 			"CoreUObject", 
 			"Engine",
-			"SpinePlugin",
 			"InputCore", 
 			"EnhancedInput",
 			"GameplayAbilities",
