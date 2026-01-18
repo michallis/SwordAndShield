@@ -21,61 +21,6 @@
 		{
 			"Name": "GameplayAbilities",
 			"Enabled": true
-		},
-		{
-			"Name": "GreyscalegorillaConnect",
-			"Enabled": false
-		},
-		{
-			"Name": "Cargo",
-			"Enabled": false
-		},
-		{
-			"Name": "Odyssey",
-			"Enabled": false
-		},
-		{
-			"Name": "HoudiniEngine",
-			"Enabled": true,
-			"TargetAllowList": [
-				"Editor"
-			]
-		},
-		{
-			"Name": "PCG",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGExternalDataInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGFastGeoInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGGeometryScriptInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGInstancedActorsInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGNaniteAssembliesInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGNiagaraInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGWaterInterop",
-			"Enabled": true
-		},
-		{
-			"Name": "PCGPythonInterop",
-			"Enabled": true
 		}
 	]
 }
