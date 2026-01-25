@@ -37,6 +37,9 @@ private:
 	TObjectPtr<UInputAction> SprintAction;
 	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Movement")
+	TObjectPtr<UInputAction> CrouchAction;
+	
+	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Movement")
 	TObjectPtr<UInputAction> LookAction;
 	
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
@@ -56,6 +59,7 @@ private:
 	
 	// Movement
 	void Jump();
+	void Crouch();
 	void StopJumping();
 	void Move(const FInputActionValue& Value);
 	void Sprint();

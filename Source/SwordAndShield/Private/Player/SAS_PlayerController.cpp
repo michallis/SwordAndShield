@@ -30,6 +30,7 @@ void ASAS_PlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ThisClass::StopJumping);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
 	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ThisClass::Sprint);
+	EnhancedInputComponent->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ThisClass::Crouch);
 	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Canceled, this, &ThisClass::SprintReset);
 	EnhancedInputComponent->BindAction(SprintAction, ETriggerEvent::Completed, this, &ThisClass::SprintReset);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ThisClass::Look);
@@ -44,6 +45,11 @@ void ASAS_PlayerController::Jump()
 {
 	if (!IsValid(GetCharacter())) return;
 	GetCharacter()->Jump();
+}
+
+void ASAS_PlayerController::Crouch()
+{
+	
 }
 
 void ASAS_PlayerController::StopJumping()
