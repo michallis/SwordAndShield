@@ -25,9 +25,9 @@ public:
 	TObjectPtr<AActor> ActiveCamera;
 	
 private:
-	/*UPROPERTY(VisibleAnywhere, Category="Camera")
+	UPROPERTY(VisibleAnywhere, Category="Camera")
 	TObjectPtr<class USpringArmComponent> CameraBoom;
 	
 	UPROPERTY(VisibleAnywhere, Category="Camera")
-	TObjectPtr<class UCameraComponent> FollowCamera;*/
+	TObjectPtr<class UCameraComponent> FollowCamera;
 };

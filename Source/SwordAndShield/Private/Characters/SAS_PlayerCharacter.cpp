@@ -32,15 +32,15 @@ ASAS_PlayerCharacter::ASAS_PlayerCharacter()
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.f;
 	
 	// Setup Player CameraBoom
-	/*CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("CameraBoom");
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 600.0f;
-	CameraBoom->bUsePawnControlRotation = true;*/
+	CameraBoom->bUsePawnControlRotation = true;
 	
 	// Setup Player FollowCamera
-	/*FollowCamera = CreateDefaultSubobject<UCameraComponent>("FollowCamera");
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>("FollowCamera");
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	FollowCamera->bUsePawnControlRotation = false;*/
+	FollowCamera->bUsePawnControlRotation = false;
 	
 	// Adding custom tag to mark player
 	Tags.Add(SasCustomTags::Player);
