@@ -25,6 +25,10 @@
 		{
 			"Name": "SpinePlugin",
 			"Enabled": false
+		},
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
 		}
 	]
 }
