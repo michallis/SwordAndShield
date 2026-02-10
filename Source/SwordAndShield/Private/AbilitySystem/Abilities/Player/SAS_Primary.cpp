@@ -7,6 +7,7 @@
 #include "Engine/OverlapResult.h"
 #include "GameplayTags/SASTags.h"
 
+// Not using a sphere, this is an example for an overlap test (instead of collision detection)
 TArray<AActor*> USAS_Primary::HitBoxOverlapTest()
 {
 	TArray<AActor*> ActorsToIgnore;
@@ -19,7 +20,7 @@ TArray<AActor*> USAS_Primary::HitBoxOverlapTest()
 	FCollisionResponseParams ResponseParams;
 	// Cannot be done in Blueprints? BlockAll by default normally (using check interfaces)
 	ResponseParams.CollisionResponse.SetAllChannels(ECR_Ignore);
-	ResponseParams.CollisionResponse.SetResponse(ECC_Pawn, ECR_Block);
+	ResponseParams.CollisionResponse.SetResponse(ECC_Pawn, ECR_Block); //all channels ignored, except for the Pawn channel
 	
 	// Not hit result as start and end of trace is same -> overlap is enough
 	TArray<FOverlapResult> OverlapResults;
@@ -36,8 +37,6 @@ TArray<AActor*> USAS_Primary::HitBoxOverlapTest()
 		if (!IsValid(Overlap.GetActor())) continue;
 		ActorsHit.AddUnique(Overlap.GetActor());
 	}
-	
-
 	
 	if (bDrawDebugs){
 		DrawHitBoxOverlapDebugs(OverlapResults, HitBoxLocation);
