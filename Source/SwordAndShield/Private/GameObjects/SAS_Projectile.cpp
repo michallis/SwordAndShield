@@ -19,7 +19,10 @@ void ASAS_Projectile::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 	
-	// Overlapping actor
+	SpawnImpactEffects();
+	
+	// Overlapping actor (can be one of both characters)
+	if (!OtherActor->ActorHasTag(SasCustomTags::Player)) return;
 	ASAS_PlayerCharacter* PlayerCharacter = Cast<ASAS_PlayerCharacter>(OtherActor);
 	if (!IsValid(PlayerCharacter) && !PlayerCharacter->IsAlive()) return;
 	UAbilitySystemComponent* AbilitySystemComponent = PlayerCharacter->GetAbilitySystemComponent();
@@ -29,6 +32,7 @@ void ASAS_Projectile::NotifyActorBeginOverlap(AActor* OtherActor)
 	FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
 	FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DamageEffect, 1.f, ContextHandle);
 	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	
 	// TODO: Use the damage variable for the amount of damage to cause 
 	// lifespan of actor BP is set in BP editor
 	Destroy(); // destroy after impact

@@ -21,6 +21,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="SAS|Damage", meta = (ExposeOnSpawn, ClampMin = "0.0"))
 	float Damage{10.f};
+	
+	UFUNCTION(BlueprintImplementableEvent, Category="SAS|Projectile")
+	void SpawnImpactEffects();
 
 private:
 	UPROPERTY(VisibleAnywhere, Category="SAS|Projectile")
