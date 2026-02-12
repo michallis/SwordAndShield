@@ -50,6 +50,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="SAS|Attributes")
 	void ResetAttributes();
 	
+	UFUNCTION(BlueprintImplementableEvent)
+	void RotateToTarget(AActor* RotateTarget);
+	
 protected:
 	void GiveStartupAbilities();
 	void InitializeAttributes();

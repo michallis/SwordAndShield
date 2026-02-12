@@ -9,6 +9,11 @@ namespace SASTags
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Primary, "SASTags.SASAbilities.Primary", "Tag for the Primary Ability")
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Secondary, "SASTags.SASAbilities.Secondary", "Tag for the Secondary Ability")
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Tertiary, "SASTags.SASAbilities.Tertiary", "Tag for the Tertiary Ability")
+
+		namespace Enemy
+		{
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(Attack, "SASTags.SASAbilities.Enemy.Attack", "Tag Enemy Attack")
+		}
 	}
 	namespace Events
 	{
@@ -17,6 +22,7 @@ namespace SASTags
 		namespace Enemy
 		{
 			UE_DEFINE_GAMEPLAY_TAG_COMMENT(HitReact, "SASTags.Events.Enemy.HitReact", "Tag for Enemy Hit React Event")
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(EndAttack, "SASTags.Events.Enemy.EndAttack", "Triggered immediately when attack has finished")
 		}
 	}
 }

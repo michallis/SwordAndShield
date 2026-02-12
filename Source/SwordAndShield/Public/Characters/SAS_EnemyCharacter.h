@@ -28,6 +28,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="SAS|AI")
 	float MaxAttackDelay{.5f};
 	
+	UFUNCTION(BlueprintImplementableEvent, Category="SAS|AI")
+	float GetTimelineLength();
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void HandleDeath() override;
