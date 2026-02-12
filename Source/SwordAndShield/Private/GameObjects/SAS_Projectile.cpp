@@ -22,9 +22,10 @@ void ASAS_Projectile::NotifyActorBeginOverlap(AActor* OtherActor)
 	SpawnImpactEffects();
 	
 	// Overlapping actor (can be one of both characters)
-	if (!OtherActor->ActorHasTag(SasCustomTags::Player)) return;
+	//if (!OtherActor->ActorHasTag(SasCustomTags::Player)) return;
 	ASAS_PlayerCharacter* PlayerCharacter = Cast<ASAS_PlayerCharacter>(OtherActor);
-	if (!IsValid(PlayerCharacter) && !PlayerCharacter->IsAlive()) return;
+	if (!IsValid(PlayerCharacter)) return;
+	if (!PlayerCharacter->IsAlive()) return;
 	UAbilitySystemComponent* AbilitySystemComponent = PlayerCharacter->GetAbilitySystemComponent();
 	if (!IsValid(AbilitySystemComponent) || !HasAuthority()) return;
 	
