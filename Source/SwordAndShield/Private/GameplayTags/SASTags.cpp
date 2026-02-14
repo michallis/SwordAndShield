@@ -2,6 +2,10 @@
 
 namespace SASTags
 {
+	namespace SetByCaller 
+	{
+		UE_DEFINE_GAMEPLAY_TAG_COMMENT(Projectile, "SASTags.SetByCaller.Projectile", "Tag for SetByCaller Magnitude for Projectiles")
+	}
 	namespace SASAbilities
 	{
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(ActivateOnGiven, "SASTags.SASAbilities.ActivateOnGiven", "Tag to activate ability when given")

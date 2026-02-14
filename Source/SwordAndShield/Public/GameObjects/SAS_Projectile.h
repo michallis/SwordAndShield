@@ -19,8 +19,8 @@ public:
 	ASAS_Projectile();
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="SAS|Damage", meta = (ExposeOnSpawn, ClampMin = "0.0"))
-	float Damage{10.f};
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="SAS|Damage", meta = (ExposeOnSpawn))
+	float Damage{-25.f};
 	
 	UFUNCTION(BlueprintImplementableEvent, Category="SAS|Projectile")
 	void SpawnImpactEffects();
