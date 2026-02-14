@@ -27,6 +27,7 @@ namespace SASTags
 		{
 			UE_DEFINE_GAMEPLAY_TAG_COMMENT(HitReact, "SASTags.Events.Enemy.HitReact", "Tag for Enemy Hit React Event")
 			UE_DEFINE_GAMEPLAY_TAG_COMMENT(EndAttack, "SASTags.Events.Enemy.EndAttack", "Triggered immediately when attack has finished")
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(MeleeTraceHits, "SASTags.Events.Enemy.MeleeTraceHits", "Tag for the Enemy Melee Trace Hit")
 		}
 	}
 }

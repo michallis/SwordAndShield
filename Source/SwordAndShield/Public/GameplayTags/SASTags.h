@@ -31,6 +31,7 @@ namespace SASTags
 		{
 			UE_DECLARE_GAMEPLAY_TAG_EXTERN(HitReact);
 			UE_DECLARE_GAMEPLAY_TAG_EXTERN(EndAttack);
+			UE_DECLARE_GAMEPLAY_TAG_EXTERN(MeleeTraceHits);
 		}
 	}
 }
