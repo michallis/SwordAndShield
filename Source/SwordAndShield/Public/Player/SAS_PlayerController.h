@@ -23,6 +23,15 @@ class SWORDANDSHIELD_API ASAS_PlayerController : public APlayerController
 protected:
 	virtual void SetupInputComponent() override;
 	
+	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
+	float MaxSpeedMovementWalk = 200.f;
+	
+	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
+	float MaxSpeedMovementSprint = 400.f;
+	
+	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
+	float SlideDuration = 0.5f;
+	
 private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input")
 	TArray<TObjectPtr<UInputMappingContext>> InputMappingContexts;
@@ -51,15 +60,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input|Abilities")
 	TObjectPtr<UInputAction> TertiaryAction;
 	
-	UPROPERTY(EditAnywhere, Category="SAS|Movement")
-	float MaxSpeedMovementWalk = 200.f;
-	
-	UPROPERTY(EditAnywhere, Category="SAS|Movement")
-	float MaxSpeedMovementSprint = 400.f;
-	
 	// Movement
 	void Jump();
 	void Crouch();
+	void CrouchReset();
 	void StopJumping();
 	void Move(const FInputActionValue& Value);
 	void Sprint();
