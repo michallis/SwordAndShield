@@ -91,7 +91,14 @@ void ASAS_PlayerController::Move(const FInputActionValue& Value)
 void ASAS_PlayerController::Sprint()
 {
 	if (!IsValid(GetCharacter())) return;
-	GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementSprint;
+	if (bIsSliding)
+	{
+		GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementSlide;
+	}else
+	{
+		GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementSprint;	
+	}
+	
 }
 
 void ASAS_PlayerController::SprintReset()

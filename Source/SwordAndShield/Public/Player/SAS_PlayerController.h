@@ -32,6 +32,12 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
 	float SlideDuration = 0.5f;
 	
+	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
+	float MaxSpeedMovementSlide = 480.f;
+	
+	UPROPERTY(BlueprintReadWrite, Category="SAS|Movement")
+	bool bIsSliding = false;
+	
 private:
 	UPROPERTY(EditDefaultsOnly, Category="SAS|Input")
 	TArray<TObjectPtr<UInputMappingContext>> InputMappingContexts;
