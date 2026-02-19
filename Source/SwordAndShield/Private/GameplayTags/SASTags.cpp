@@ -22,6 +22,12 @@ namespace SASTags
 	namespace Events
 	{
 		UE_DEFINE_GAMEPLAY_TAG_COMMENT(KillScored, "SASTags.Events.KillScored", "Tag for the KillScored Event")
+
+		namespace Player
+		{
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(HitReact, "SASTags.Events.Player.HitReact", "Tag for Player Hit React Event")
+			UE_DEFINE_GAMEPLAY_TAG_COMMENT(Death, "SASTags.Events.Player.Death", "Tag for the Player Death Event")
+		}
 		
 		namespace Enemy
 		{

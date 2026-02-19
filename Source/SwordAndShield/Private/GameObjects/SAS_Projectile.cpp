@@ -8,6 +8,7 @@
 #include "Characters/SAS_PlayerCharacter.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameplayTags/SASTags.h"
+#include "Utils/SAS_BlueprintLibrary.h"
 
 
 ASAS_Projectile::ASAS_Projectile()
@@ -31,11 +32,11 @@ void ASAS_Projectile::NotifyActorBeginOverlap(AActor* OtherActor)
 	if (!IsValid(AbilitySystemComponent) || !HasAuthority()) return;
 	
 	// Apply GameplayEffect to Player
-	FGameplayEffectContextHandle ContextHandle = AbilitySystemComponent->MakeEffectContext();
-	FGameplayEffectSpecHandle SpecHandle = AbilitySystemComponent->MakeOutgoingSpec(DamageEffect, 1.f, ContextHandle);
-	// dynamically set the damage using a TagSetByCallerMagnitude
-	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, SASTags::SetByCaller::Projectile, Damage);
-	AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get()); //applied on the overlapped actor
+	FGameplayEventData Payload;
+	Payload.Instigator = GetOwner();
+	Payload.Target = PlayerCharacter;
+	USAS_BlueprintLibrary::SendDamageEventToPlayer(PlayerCharacter, DamageEffect, Payload, SASTags::SetByCaller::Projectile, Damage);
+	
 	// lifespan of actor BP is set in BP editor
 	Destroy(); // destroy after impact
 }

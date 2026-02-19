@@ -3,7 +3,10 @@
 
 #include "Utils/SAS_BlueprintLibrary.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystem/SAS_AttributeSet.h"
 #include "Characters/SAS_BaseCharacter.h"
+#include "GameplayTags/SASTags.h"
 #include "Kismet/GameplayStatics.h"
 
 EHitDirection USAS_BlueprintLibrary::GetHitDirection(const FVector& TargetForward, const FVector& ToInstigator)
@@ -63,4 +66,29 @@ FClosestActorWithTagResult USAS_BlueprintLibrary::FindClosesActorWithTag(const U
 	}
 	
 	return FClosestActorWithTagResult{ClosestActor, ClosestDistance};
+}
+
+
+void USAS_BlueprintLibrary::SendDamageEventToPlayer(AActor* Target, const TSubclassOf<UGameplayEffect>& DamageEffect,
+	const FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage)
+{
+	ASAS_BaseCharacter* PlayerCharacter = Cast<ASAS_BaseCharacter>(Target);
+	if (!IsValid(PlayerCharacter)) return;
+	if (!PlayerCharacter->IsAlive()) return;
+	
+	USAS_AttributeSet* AttributeSet = Cast<USAS_AttributeSet>(PlayerCharacter->GetAttributeSet());
+	if (!IsValid(AttributeSet)) return;
+	
+	// Send HitReact of Death event
+	const bool bLethal = AttributeSet->GetHealth() - Damage <= 0;
+	const FGameplayTag EventTag = bLethal ? SASTags::Events::Player::Death : SASTags::Events::Player::HitReact;
+	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(PlayerCharacter, EventTag, Payload);
+	
+	// Do damage with SetByCaller Magnitude
+	UAbilitySystemComponent* TargetASC = PlayerCharacter->GetAbilitySystemComponent();
+	if (!IsValid(TargetASC)) return;
+	FGameplayEffectContextHandle ContextHandle = TargetASC->MakeEffectContext();
+	FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(DamageEffect, 1.f, ContextHandle);
+	UAbilitySystemBlueprintLibrary::AssignTagSetByCallerMagnitude(SpecHandle, DataTag, -Damage);
+	TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
 }

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystem/SAS_WaitGameplayEvent.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
 #include "SAS_BlueprintLibrary.generated.h"
 
@@ -45,6 +46,10 @@ public:
 	
 	UFUNCTION(BlueprintCallable, Category="SAS|Utils")
 	static FClosestActorWithTagResult FindClosesActorWithTag(const UObject* WorldContextObject, const FVector& Origin, const FName& Tag);
+	
+	// DataTag is for the Set by Caller Magnitude (gameplay effect magnitude)
+	UFUNCTION(BlueprintCallable, Category="SAS|Utils")
+	static void SendDamageEventToPlayer(AActor* Target, const TSubclassOf<UGameplayEffect>& DamageEffect, const FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage);
 };
 
 
