@@ -30,6 +30,6 @@ private:
 	float SphereTraceRadius{40.f};
 	
 	TArray<FHitResult> PerformSphereTrace(USkeletalMeshComponent* MeshComp) const;
-	
-	void SendEventsToActors(USkeletalMeshComponent* MeshComp, const TArray<FHitResult>& Hits) const;
+
+	static void SendEventsToActors(const USkeletalMeshComponent* MeshComp, const TArray<FHitResult>& Hits);
 };

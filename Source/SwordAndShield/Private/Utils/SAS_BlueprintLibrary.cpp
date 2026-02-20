@@ -79,7 +79,7 @@ void USAS_BlueprintLibrary::SendDamageEventToPlayer(AActor* Target, const TSubcl
 	USAS_AttributeSet* AttributeSet = Cast<USAS_AttributeSet>(PlayerCharacter->GetAttributeSet());
 	if (!IsValid(AttributeSet)) return;
 	
-	// Send HitReact of Death event
+	// Send HitReact or Death event
 	const bool bLethal = AttributeSet->GetHealth() - Damage <= 0;
 	const FGameplayTag EventTag = bLethal ? SASTags::Events::Player::Death : SASTags::Events::Player::HitReact;
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(PlayerCharacter, EventTag, Payload);

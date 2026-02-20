@@ -67,7 +67,7 @@ TArray<FHitResult> USAS_MeleeAttack::PerformSphereTrace(USkeletalMeshComponent* 
 	return OutHits;
 }
 
-void USAS_MeleeAttack::SendEventsToActors(USkeletalMeshComponent* MeshComp, const TArray<FHitResult>& Hits) const
+void USAS_MeleeAttack::SendEventsToActors(const USkeletalMeshComponent* MeshComp, const TArray<FHitResult>& Hits)
 {
 	for (const FHitResult& Hit : Hits)
 	{
