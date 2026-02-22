@@ -70,7 +70,7 @@ FClosestActorWithTagResult USAS_BlueprintLibrary::FindClosesActorWithTag(const U
 
 
 void USAS_BlueprintLibrary::SendDamageEventToPlayer(AActor* Target, const TSubclassOf<UGameplayEffect>& DamageEffect,
-	const FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage)
+	FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage, UObject* OptionalParticleSystem)
 {
 	ASAS_BaseCharacter* PlayerCharacter = Cast<ASAS_BaseCharacter>(Target);
 	if (!IsValid(PlayerCharacter)) return;
@@ -82,6 +82,11 @@ void USAS_BlueprintLibrary::SendDamageEventToPlayer(AActor* Target, const TSubcl
 	// Send HitReact or Death event
 	const bool bLethal = AttributeSet->GetHealth() - Damage <= 0;
 	const FGameplayTag EventTag = bLethal ? SASTags::Events::Player::Death : SASTags::Events::Player::HitReact;
+	
+	// Enrich the payload with an optional field
+	Payload.OptionalObject = OptionalParticleSystem;
+	
+	// Send Gameplay Event to Actor
 	UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(PlayerCharacter, EventTag, Payload);
 	
 	// Do damage with SetByCaller Magnitude

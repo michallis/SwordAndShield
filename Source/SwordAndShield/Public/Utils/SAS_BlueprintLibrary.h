@@ -48,8 +48,10 @@ public:
 	static FClosestActorWithTagResult FindClosesActorWithTag(const UObject* WorldContextObject, const FVector& Origin, const FName& Tag);
 	
 	// DataTag is for the Set by Caller Magnitude (gameplay effect magnitude)
+	// The UPARAM (meta specifier) has been added because before we had a const reference, but we need to modify the payload before sending the event, 
+	// so we need to pass it by reference without const (if no const -> UE treats it as an output exec pin, and not anymore as an input exec pin)
 	UFUNCTION(BlueprintCallable, Category="SAS|Utils")
-	static void SendDamageEventToPlayer(AActor* Target, const TSubclassOf<UGameplayEffect>& DamageEffect, const FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage);
+	static void SendDamageEventToPlayer(AActor* Target, const TSubclassOf<UGameplayEffect>& DamageEffect, UPARAM(ref) FGameplayEventData& Payload, const FGameplayTag& DataTag, float Damage, UObject* OptionalParticleSystem = nullptr);
 };
 
 
