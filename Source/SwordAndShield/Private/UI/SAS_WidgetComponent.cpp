@@ -68,6 +68,8 @@ void USAS_WidgetComponent::OnASCInitialized(UAbilitySystemComponent* ASC, UAttri
  */
 void USAS_WidgetComponent::BindToAttributeChanges()
 {
+	// Allow to play without UI widget for health and mana
+	if (!IsValid(GetUserWidgetObject())) return;
 	for (const TTuple<FGameplayAttribute, FGameplayAttribute>& Pair : AttributeMap)
 	{
 		BindWidgetToAttributeChanges(GetUserWidgetObject(), Pair); // for checking the owned widget object
