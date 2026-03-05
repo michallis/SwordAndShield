@@ -6,6 +6,7 @@
 #include "AbilitySystemComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "Characters/SAS_BaseCharacter.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameplayTags/SASTags.h"
@@ -46,6 +47,7 @@ void ASAS_PlayerController::SetupInputComponent()
 void ASAS_PlayerController::Jump()
 {
 	if (!IsValid(GetCharacter())) return;
+	if (!IsAlive()) return;
 	GetCharacter()->Jump();
 }
 
@@ -62,6 +64,7 @@ void ASAS_PlayerController::CrouchReset()
 void ASAS_PlayerController::StopJumping()
 {
 	if (!IsValid(GetCharacter())) return;
+	if (!IsAlive()) return;
 	GetCharacter()->StopJumping();
 }
 
@@ -69,6 +72,7 @@ void ASAS_PlayerController::StopJumping()
 void ASAS_PlayerController::Move(const FInputActionValue& Value)
 {
 	if (!IsValid(GetPawn())) return;
+	if (!IsAlive()) return;
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 	
 	// Get player camera manager
@@ -91,6 +95,7 @@ void ASAS_PlayerController::Move(const FInputActionValue& Value)
 void ASAS_PlayerController::Sprint()
 {
 	if (!IsValid(GetCharacter())) return;
+	if (!IsAlive()) return;
 	if (bIsSliding)
 	{
 		GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementSlide;
@@ -104,6 +109,7 @@ void ASAS_PlayerController::Sprint()
 void ASAS_PlayerController::SprintReset()
 {
 	if (!IsValid(GetCharacter())) return;
+	if (!IsAlive()) return;
 	GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = MaxSpeedMovementWalk;
 }
 
@@ -135,4 +141,11 @@ void ASAS_PlayerController::ActivateAbility(const FGameplayTag& AbilityTag) cons
 	if (!IsValid(ASC)) return;
 	ASC->TryActivateAbilitiesByTag(AbilityTag.GetSingleTagContainer());
 	
+}
+
+bool ASAS_PlayerController::IsAlive() const
+{
+	ASAS_BaseCharacter* BaseCharacter = Cast<ASAS_BaseCharacter>(GetPawn());
+	if (!IsValid(BaseCharacter)) return false;
+	return BaseCharacter->IsAlive();
 }
