@@ -122,6 +122,7 @@ void ASAS_PlayerController::Look(const FInputActionValue& Value)
 
 void ASAS_PlayerController::Primary()
 {
+	UE_LOG(LogScript, Warning, TEXT("===PRIMARY==="))
 	ActivateAbility(SASTags::SASAbilities::Primary);
 }
 
