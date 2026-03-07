@@ -29,6 +29,10 @@
 		{
 			"Name": "GameplayStateTree",
 			"Enabled": true
+		},
+		{
+			"Name": "ChaosRigidAsset",
+			"Enabled": true
 		}
 	]
 }
